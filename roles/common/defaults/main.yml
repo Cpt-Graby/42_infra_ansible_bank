@@ -1,0 +1,16 @@
+#SPDX-License-Identifier: MIT-0
+---
+common_packages:
+  - curl
+  - vim
+  - git
+  - htop
+  - jq
+  - net-tools
+
+common_timezone: Europe/Zurich
+
+common_ntp_server: 10.1.255.2
+
+# Public keys for the ansible account. Site value: inventory/group_vars/all.yml.
+common_ssh_keys: []

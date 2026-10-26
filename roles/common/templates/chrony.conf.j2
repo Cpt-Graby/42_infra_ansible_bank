@@ -1,0 +1,26 @@
+# {{ ansible_managed }}
+# pfSense is the only time source of the rack: no pool, no DHCP-provided servers.
+server {{ common_ntp_server }} iburst
+
+# Authentication keys for NTP and command access.
+keyfile /etc/chrony/chrony.keys
+
+# Frequency correction of the system clock, kept across restarts.
+driftfile /var/lib/chrony/chrony.drift
+
+# NTS cookies and server keys.
+ntsdumpdir /var/lib/chrony
+
+logdir /var/log/chrony
+
+# Ignore sources whose frequency estimate is too unreliable.
+maxupdateskew 100.0
+
+# Copy the system time to the hardware clock (RTC) every 11 minutes.
+rtcsync
+
+# Step the clock if it is off by more than 1 s, during the first 3 updates only.
+makestep 1 3
+
+# Leap second information from the tz database.
+leapsectz right/UTC

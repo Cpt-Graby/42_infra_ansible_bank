@@ -1,0 +1,23 @@
+---
+- name: Test for existence /etc/ssh/sshd_config
+  ansible.builtin.stat:
+    path: /etc/ssh/sshd_config
+  register: file_exists
+
+- name: Ensure permission u-xs,g-xwrs,o-xwrt on /etc/ssh/sshd_config
+  ansible.builtin.file:
+    path: /etc/ssh/sshd_config
+    mode: u-xs,g-xwrs,o-xwrt
+  when:
+  - file_exists.stat is defined and file_exists.stat.exists
+
+- name: Deploy CIS sshd drop-in
+  ansible.builtin.template:
+    src: 10-cis-hardening.conf.j2
+    dest: /etc/ssh/sshd_config.d/10-cis-hardening.conf
+    owner: root
+    group: root
+    mode: '0600'
+    validate: /usr/sbin/sshd -t -f %s
+  notify: Restart ssh
+

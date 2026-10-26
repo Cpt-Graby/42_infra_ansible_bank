@@ -1,0 +1,20 @@
+---
+- name: Deploy the banner
+  ansible.builtin.template:
+    src: banner.j2
+    dest: /etc/issue.net
+    owner: root
+    group: root
+    mode: '0644'
+
+# The distribution's sshd_config is left untouched: it already includes
+# /etc/ssh/sshd_config.d/*.conf before its own settings.
+- name: Deploy sshd hardening drop-in
+  ansible.builtin.template:
+    src: 20-hardening.conf.j2
+    dest: /etc/ssh/sshd_config.d/20-hardening.conf
+    owner: root
+    group: root
+    mode: '0600'
+    validate: /usr/sbin/sshd -t -f %s
+  notify: Restart ssh

@@ -1,0 +1,8 @@
+---
+- name: Deploy /etc/motd from template
+  ansible.builtin.template:
+    src: motd_base.j2
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: "0644"

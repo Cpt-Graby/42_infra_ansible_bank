@@ -1,0 +1,5 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for cis-hardening
+# "Restart ssh" is provided by the ssh-hardening role, which must
+# be in the same play (site.yml).

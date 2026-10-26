@@ -1,0 +1,24 @@
+---
+- name: Install chrony
+  ansible.builtin.apt:
+    name: chrony
+    state: present
+
+- name: Deploy chrony configuration
+  ansible.builtin.template:
+    src: chrony.conf.j2
+    dest: /etc/chrony/chrony.conf
+    owner: root
+    group: root
+    mode: "0644"
+    validate: aa-exec -p unconfined -- chronyd -p -f %s
+  notify: Restart chrony
+
+- name: Ensure chrony is started and enabled
+  ansible.builtin.service:
+    name: chrony
+    state: started
+    enabled: true
+
+- name: Apply chrony configuration now
+  ansible.builtin.meta: flush_handlers

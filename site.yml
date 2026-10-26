@@ -1,0 +1,10 @@
+---
+- name: Common configuration
+  hosts: all
+  roles:
+    - role: common
+      tags: common
+    - role: ssh-hardening
+      tags: ssh-hardening
+    - role: cis-hardening
+      tags: cis-hardening
