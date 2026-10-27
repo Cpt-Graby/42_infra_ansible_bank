@@ -1,0 +1,4 @@
+---
+- name: Installing script
+  ansible.builtin.import_tasks: install.yml
+  tags: install_k3s

@@ -1,0 +1,15 @@
+ ---
+- name: Download k3s install script
+  ansible.builtin.get_url:
+    url: https://get.k3s.io
+    dest: /usr/local/bin/k3s-install.sh
+    mode: "0755"
+
+- name: Run k3s install script (server)
+  ansible.builtin.command:
+    cmd: /usr/local/bin/k3s-install.sh
+    creates: /usr/local/bin/k3s
+  environment:
+    INSTALL_K3S_VERSION: "{{ k3s_version }}"
+    K3S_TOKEN: "{{ token }}"
+    INSTALL_K3S_EXEC: "server --tls-san {{ api_endpoint }}"
