@@ -14,3 +14,9 @@ common_ssh_keys:
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGRd6FEz1k6gqNMHGPX1j4jOD3KFDkTnl+6gc6YDy+P8 kino@Spellbook.local
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIcYU/f1Gpmv/LN9eboqNb6a/L3phCSUBMKfiiwnpI4B johnwick@tardis
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBjdElJe8QTWK5NdcXzyUxKcnBq7fpuFlG1NjZxspId/ benedict@pfsense
+
+k3s_version: "v1.31.4+k3s1"
+k3s_api_endpoint: "10.1.10.160"
+k3s_token: "{{ vault_k3s_token }}"
+
+
