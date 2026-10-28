@@ -6,7 +6,7 @@ users_admins:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAcryWfcg3iOT01QaDtVWOj96eOJY1kgOLr6GV3lEDlE id@MacBook-Pro-de-Id.local
   - name: alexis
     ssh_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGRd6FEz1k6gqNMHGPX1j4jOD3KFDkTnl+6gc6YDy+P8 kino@Spellbook.local
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPON3Pxumz3ilR18bhzQaUUa5DUcOSdX5O/oLP0BtIzk alexis@ansible
   - name: benedict
     ssh_keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBjdElJe8QTWK5NdcXzyUxKcnBq7fpuFlG1NjZxspId/ benedict@pfsense
