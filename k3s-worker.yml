@@ -1,0 +1,6 @@
+---
+- name: Install k3s workers
+  hosts: k3s_worker
+  roles:
+    - role: k3s-worker
+      tags: k3s-worker

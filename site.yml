@@ -13,3 +13,6 @@
 
 - name: Import k3s control plane playbook
   ansible.builtin.import_playbook: k3s-control.yml
+
+- name: Import k3s workers playbook
+  ansible.builtin.import_playbook: k3s-worker.yml

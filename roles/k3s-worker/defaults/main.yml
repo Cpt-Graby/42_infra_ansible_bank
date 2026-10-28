@@ -1,0 +1,7 @@
+---
+# Must match the control plane version.
+k3s_version: ""
+
+k3s_api_endpoint: "{{ hostvars[groups['k3s_control'][0]]['ansible_host'] }}"
+
+k3s_install_script: /usr/local/bin/k3s-install.sh
