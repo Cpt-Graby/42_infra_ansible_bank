@@ -1,6 +1,6 @@
 ---
 - name: Install k3s control plane
-  hosts: k3s_control
+  hosts: k3s-control.cloud-1.fun
   roles:
     - role: k3s-control
-      tags: k3s-control
+      tags: k3s-control:vs
