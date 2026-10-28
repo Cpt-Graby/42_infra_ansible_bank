@@ -2,3 +2,4 @@ ansible.log
 
 # Cluster admin kubeconfig fetched by the role k3s-control.
 files/k3s.yaml
+en.subject*.pdf

@@ -5,5 +5,8 @@
 - name: Check k3s prerequisites
   ansible.builtin.import_tasks: prereq.yml
 
-- name: Install k3s server
+- name: Install k3s server and Calico
   ansible.builtin.import_tasks: install.yml
+
+- name: Fetch node token and kubeconfig
+  ansible.builtin.import_tasks: fetch.yml
