@@ -1,22 +1,28 @@
 ---
-# Site-wide values, overriding the roles' defaults/main.yml.
+# Personal admin accounts (role users): SSH key only, passwordless sudo.
+users_admins:
+  - name: pieric
+    ssh_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAcryWfcg3iOT01QaDtVWOj96eOJY1kgOLr6GV3lEDlE id@MacBook-Pro-de-Id.local
+  - name: alexis
+    ssh_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGRd6FEz1k6gqNMHGPX1j4jOD3KFDkTnl+6gc6YDy+P8 kino@Spellbook.local
+  - name: benedict
+    ssh_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBjdElJe8QTWK5NdcXzyUxKcnBq7fpuFlG1NjZxspId/ benedict@pfsense
 
-# Only account allowed to log in over SSH (cis-hardening). Everyone connects
-# as ansible with their own key (common_ssh_keys), then uses sudo.
-cis_ssh_allow_users:
-  - ansible
-
-# Public keys written to /home/ansible/.ssh/authorized_keys (common).
-# The file is replaced as a whole: a key removed here loses access.
-common_ssh_keys:
+# Only key kept on the ansible account (key/ansible.pub).
+users_automation_keys:
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA/Cw4uZHVC34HkDoiCt/JiE8vdZCXLfGA6qOLsEl3e7 default@infra.fun
-  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAcryWfcg3iOT01QaDtVWOj96eOJY1kgOLr6GV3lEDlE id@MacBook-Pro-de-Id.local
-  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGRd6FEz1k6gqNMHGPX1j4jOD3KFDkTnl+6gc6YDy+P8 kino@Spellbook.local
-  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIcYU/f1Gpmv/LN9eboqNb6a/L3phCSUBMKfiiwnpI4B johnwick@tardis
-  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBjdElJe8QTWK5NdcXzyUxKcnBq7fpuFlG1NjZxspId/ benedict@pfsense
 
-k3s_version: "v1.31.4+k3s1"
-k3s_api_endpoint: "10.1.10.160"
-k3s_token: "{{ vault_k3s_token }}"
+# Legacy accounts removed from every host.
+users_removed:
+  - debian
+  - ubuntu
+  - alpine
 
-
+# Only these groups may log in over SSH (role cis-hardening): the personal
+# admin accounts and the automation account (primary group "ansible").
+cis_hardening_ssh_allow_groups:
+  - admins
+  - ansible

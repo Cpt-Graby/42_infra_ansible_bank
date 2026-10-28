@@ -1,32 +1,17 @@
 #SPDX-License-Identifier: MIT-0
 ---
-# Values are quoted strings on purpose: unquoted yes/no would become YAML
-# booleans and be rendered as True/False in sshd_config.
+# defaults file for ssh-hardening
 
-# Direct root login is refused: admins log in as themselves, then sudo.
+# yes/no values are quoted: unquoted they become YAML booleans and render as True/False.
 ssh_hardening_permit_root_login: "no"
-
-# No password logins: keys only, nothing left to brute-force.
 ssh_hardening_password_authentication: "no"
-
-# Public key authentication, the only method left once passwords are off.
 ssh_hardening_pubkey_authentication: "yes"
-
-# Requested by the subject. Ignored by OpenSSH >= 7.6 (SSH-2 is the only protocol left).
-ssh_hardening_protocol: "2"
-
-# Authentication attempts allowed per connection before it is dropped.
+# Required by the subject; SSH-2 is the only protocol left since OpenSSH 7.6.
+ssh_hardening_protocol: 2
 ssh_hardening_max_auth_tries: 3
-
-# Seconds of client silence before sshd sends a keepalive probe.
 ssh_hardening_client_alive_interval: 300
-
-# Unanswered probes before the session is closed (300 s x 2 = 10 min idle).
 ssh_hardening_client_alive_count_max: 2
-
-# File shown to the client before authentication (legal warning).
 ssh_hardening_banner: /etc/issue.net
 
-# Banners messages contain in the banner
-ssh_hardening_banner_message: "Le code, c'est comme un jardin. S'il n'est pas constamment entretenu, il finit par ressembler à une décharge. Mange bien tes morts si tu fais de la merde"
-
+# Name shown in the legal warning of the banner.
+ssh_hardening_banner_owner: cloud-1.fun

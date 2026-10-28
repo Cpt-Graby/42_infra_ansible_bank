@@ -1,7 +1,9 @@
+#SPDX-License-Identifier: MIT-0
 ---
-- name: Deploy /etc/motd from template
+# tasks file for motd
+- name: Deploy /etc/motd
   ansible.builtin.template:
-    src: motd_base.j2
+    src: motd.j2
     dest: /etc/motd
     owner: root
     group: root

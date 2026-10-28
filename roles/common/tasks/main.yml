@@ -1,30 +1,24 @@
 #SPDX-License-Identifier: MIT-0
-# tasks file for roles/common
 ---
-- name: Hostname
-  ansible.builtin.import_tasks: hostname.yml
-  tags: hostname
+# tasks file for common
 
-- name: Install Packages
+- name: Load OS-specific variables
+  ansible.builtin.include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_facts['distribution'] }}.yml"
+    - "{{ ansible_facts['os_family'] }}.yml"
+
+- name: Run OS-specific tasks
+  ansible.builtin.include_tasks: "{{ ansible_facts['os_family'] }}.yml"
+
+- name: Install base packages
   ansible.builtin.import_tasks: packages.yml
-  tags: packages
 
-- name: Import ssh-key
-  ansible.builtin.import_tasks: ssh_keys.yml
-  tags: ssh_keys
-
-- name: Timezone
+- name: Configure timezone
   ansible.builtin.import_tasks: timezone.yml
-  tags: timezone
 
-- name: Ubuntu Pro nag messages
-  ansible.builtin.import_tasks: ubuntu_pro.yml
-  tags: ubuntu_pro
+- name: Configure NTP
+  ansible.builtin.import_tasks: chrony.yml
 
-- name: Motd
-  ansible.builtin.import_tasks: deploy_motd.yml
-  tags: motd
-
-- name: NTP
-  ansible.builtin.import_tasks: ntp.yml
-  tags: ntp
+- name: Configure motd
+  ansible.builtin.import_tasks: motd.yml

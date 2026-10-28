@@ -1,20 +1,33 @@
- ---
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for the k3s server
 - name: Download k3s install script
   ansible.builtin.get_url:
     url: https://get.k3s.io
-    dest: /usr/local/bin/k3s-install.sh
+    dest: "{{ k3s_install_script }}"
+    owner: root
+    group: root
     mode: "0755"
 
+# creates: the script only runs on the first install. Changing k3s_version
+# afterwards does not upgrade the node.
 - name: Run k3s install script (server)
   ansible.builtin.command:
-    cmd: /usr/local/bin/k3s-install.sh
+    cmd: "{{ k3s_install_script }}"
     creates: /usr/local/bin/k3s
   environment:
     INSTALL_K3S_VERSION: "{{ k3s_version }}"
-    K3S_TOKEN: "{{ token }}"
-    INSTALL_K3S_EXEC: "server --tls-san {{ api_endpoint }}"
+    K3S_TOKEN: "{{ k3s_token }}"
+    INSTALL_K3S_EXEC: "server --tls-san {{ k3s_api_endpoint }}"
+  no_log: true
+
+- name: Enable and start k3s
+  ansible.builtin.service:
+    name: k3s
+    enabled: true
+    state: started
 
 - name: Wait for node ready state
   ansible.builtin.command:
-    cmd: k3s kubectl wait --for=condition=Ready node --all --timeout=120s
+    cmd: /usr/local/bin/k3s kubectl wait --for=condition=Ready node --all --timeout=120s
   changed_when: false

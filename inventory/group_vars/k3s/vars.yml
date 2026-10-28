@@ -1,0 +1,10 @@
+---
+# k3s cluster (roles k3s-control, later k3s-worker), shared by every node.
+# vault_* values live in vault.yml next to this file (ansible-vault).
+k3s_version: "v1.31.4+k3s1"
+
+# Name of the control plane, from the inventory: workers join it and kubectl
+# reaches it on port 6443.
+k3s_api_endpoint: "{{ hostvars[groups['k3s_control'][0]]['ansible_host'] }}"
+
+k3s_token: "{{ vault_k3s_token }}"

@@ -1,8 +1,8 @@
-# {{ ansible_managed }}
-# sshd keeps the first value it reads for each option: this drop-in wins over
-# sshd_config and over any later drop-in (e.g. 50-cloud-init.conf).
+{{ ansible_managed | comment }}
+
 PermitRootLogin {{ ssh_hardening_permit_root_login }}
 PasswordAuthentication {{ ssh_hardening_password_authentication }}
+# Keyboard-interactive can also prompt for a password: closed as well.
 KbdInteractiveAuthentication no
 PubkeyAuthentication {{ ssh_hardening_pubkey_authentication }}
 Protocol {{ ssh_hardening_protocol }}

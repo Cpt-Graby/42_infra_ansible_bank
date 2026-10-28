@@ -1,14 +1,14 @@
 #SPDX-License-Identifier: MIT-0
 ---
-# Values are quoted strings on purpose: unquoted yes/no would become YAML
-# booleans and be rendered as True/False in sshd_config.
+# defaults file for cis-hardening
+# yes/no values are quoted: unquoted they become YAML booleans and render as True/False.
 
-# Accounts allowed to log in over SSH. Empty list: no AllowUsers line, every
+# Groups allowed to log in over SSH. Empty list: no AllowGroups line, every
 # account may log in. The site value lives in inventory/group_vars/all.yml.
-cis_ssh_allow_users: []
+cis_hardening_ssh_allow_groups: []
 
 # Algorithms accepted by the CIS Level 1 Server profile (OpenSCAP report).
-cis_ssh_ciphers:
+cis_hardening_ssh_ciphers:
   - chacha20-poly1305@openssh.com
   - aes256-gcm@openssh.com
   - aes128-gcm@openssh.com
@@ -16,7 +16,7 @@ cis_ssh_ciphers:
   - aes192-ctr
   - aes128-ctr
 
-cis_ssh_kex_algorithms:
+cis_hardening_ssh_kex_algorithms:
   - sntrup761x25519-sha512@openssh.com
   - curve25519-sha256
   - curve25519-sha256@libssh.org
@@ -28,25 +28,25 @@ cis_ssh_kex_algorithms:
   - diffie-hellman-group18-sha512
   - diffie-hellman-group14-sha256
 
-cis_ssh_macs:
+cis_hardening_ssh_macs:
   - hmac-sha2-512-etm@openssh.com
   - hmac-sha2-256-etm@openssh.com
   - hmac-sha2-512
   - hmac-sha2-256
 
-cis_ssh_hostbased_authentication: "no"
-cis_ssh_ignore_rhosts: "yes"
+cis_hardening_ssh_hostbased_authentication: "no"
+cis_hardening_ssh_ignore_rhosts: "yes"
 
 # Seconds allowed to authenticate before the connection is dropped.
-cis_ssh_login_grace_time: 60
+cis_hardening_ssh_login_grace_time: 60
 
-cis_ssh_log_level: INFO
+cis_hardening_ssh_log_level: INFO
 
 # Open sessions per connection.
-cis_ssh_max_sessions: 10
+cis_hardening_ssh_max_sessions: 10
 
 # Unauthenticated connections: start:rate:full (drop 30 % from 10, all at 60).
-cis_ssh_max_startups: "10:30:60"
+cis_hardening_ssh_max_startups: "10:30:60"
 
-cis_ssh_permit_empty_passwords: "no"
-cis_ssh_permit_user_environment: "no"
+cis_hardening_ssh_permit_empty_passwords: "no"
+cis_hardening_ssh_permit_user_environment: "no"

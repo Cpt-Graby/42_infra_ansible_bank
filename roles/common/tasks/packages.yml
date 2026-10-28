@@ -1,11 +1,7 @@
-- name: Upgrade all packages
-  ansible.builtin.apt:
-    update_cache: true
-    upgrade: safe 
-
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for base packages
 - name: Install base packages
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: "{{ common_packages }}"
     state: present
-
-

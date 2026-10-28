@@ -1,6 +1,8 @@
+#SPDX-License-Identifier: MIT-0
 ---
+# tasks file for ntp
 - name: Install chrony
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: chrony
     state: present
 
@@ -11,14 +13,10 @@
     owner: root
     group: root
     mode: "0644"
-    validate: aa-exec -p unconfined -- chronyd -p -f %s
   notify: Restart chrony
 
-- name: Ensure chrony is started and enabled
+- name: Enable and start chrony
   ansible.builtin.service:
-    name: chrony
-    state: started
+    name: "{{ common_chrony_service }}"
     enabled: true
-
-- name: Apply chrony configuration now
-  ansible.builtin.meta: flush_handlers
+    state: started

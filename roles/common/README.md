@@ -1,7 +1,7 @@
 Role Name
 =========
 
-This role will set the common setup of a cloud-1 infra servers.
+A brief description of the role goes here.
 
 Requirements
 ------------

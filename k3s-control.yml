@@ -1,6 +1,6 @@
 ---
-- name: Installing k3s serveur 
-  hosts: k3s-control
+- name: Install k3s control plane
+  hosts: k3s_control
   roles:
     - role: k3s-control
       tags: k3s-control
